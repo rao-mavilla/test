@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>html</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Add styles for collapsible sidebar */
+    .side-nav.collapsed {
+      width: 0;
+      overflow: hidden;
+    }
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Add button to toggle sidebar -->
+<button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+<!-- Sticky and Resizable Sidebar -->
+<div class="side-nav" id="sideNav">
+    <div class="resizer" id="resizer"></div> <!-- Resize handle -->
+    <ul id="navList"></ul>
+</div>
+
+<!-- Main Content -->
+<main class="main_content">
+
+
+<!-----------------------section----------------------->
+<section  id="content"> 
+    <h1>Ref</h1>
+    <p>Type any html code to see the output.</p>
+
+    <div class="code_out_container">
+    <textarea class="myCode" oninput="adjustHeight(this)">
+
+    </textarea>
+    <iframe class="outputFrame" frameborder="0" style="height: 300px;"></iframe>
+    </div>
+</section> <!---------------------------------------------->
+ 
+
+<!-----------------------section----------------------->
+<section  id="content"> 
+
+  <h1>Section template</h1>
+  
+  <p>section para </p>
+  
+  <div class="code_out_container"><textarea class="myCode" oninput="adjustHeight(this)">
+<!-----------------------section----------------------->
+<section  id="content"> 
+
+<h1>Section template</h1>
+
+<p>section para </p>
+
+<div class="code_out_container"><textare class="myCode" oninput="adjustHeight(this)">
+textarea
+</textare>
+    
+<div class="outputFrame"><pre>
+Output
+some text
+</pre></div></div></section> <!---------------------------------------------->
+</textarea>
+      
+<div class="outputFrame"><pre>
+Replace textare with textarea
+</pre></div></div></section> <!---------------------------------------------->
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+    <h1>CSS Display</h1>
+    <p>The default display value for most elements is block or inline.</p>
+    <p>A <mark>block-level</mark> element ALWAYS starts on a new line and takes up the full width available 
+    (stretches out to the left and right as far as it can).</p>
+    <p>An <mark>inline</mark> element DOES NOT start on a new line and only takes up as much width as necessary.</p>
+    
+    <pre>
+    Block-level elements
+        * body, div, h1-h6, p, form, header, footer, section
+    Inline elements
+        * span, a, img
+    
+    <b>display: none|inline|block|inline-block|flex|grid|table|inline-flex|inline-grid|inline-table</b>
+    <b>display: contents</b>
+    </pre>
+    <!-----------------------0----------------------->
+    <div class="code_out_container">
+    <textarea class="myCode" oninput="adjustHeight(this)">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    display:block;
+} 
+h1 {
+    display: inline;
+}
+#main1 {
+    border: 2px solid red;
+    display: block;
+    } 
+#main2 {
+    border: 2px solid purple;
+    display: inline;
+    }          
+#main1 div {
+    width: 60px;
+    height: 60px;
+    display: block;
+}
+#main2 div {
+    width: 100px;
+    height: 100px;
+    display: inline;
+}
+</style>
+</head>
+<body style="border: 2px dotted green;">        
+<h1 style="border: 2px solid blue;">The display property</h1> 
+<p style="border: 2px dotted orange;">This is para element</p>       
+<div id="main1">
+    <div style="background-color:coral;">A</div>
+    <div style="background-color:lightblue;">B</div>
+    <div style="background-color:khaki;">C</div>
+    <div style="background-color:pink;">D</div>
+</div>  
+<div id="main2">
+    <div style="background-color:coral;">A</div>
+    <div style="background-color:lightblue;">B</div>
+    <div style="background-color:khaki;">C</div>
+    <div style="background-color:pink;">D</div>
+    </div>       
+</body>
+</html>
+    
+    </textarea>
+    <iframe class="outputFrame" frameborder="0"></iframe>
+    </div>
+</section> <!---------------------------------------------->
+
+
+
+
+
+
+
+
+</main> <!----Main Content end ----------------------------->
+<script>
+  // Add script to toggle sidebar
+  function toggleSidebar() {
+    const sideNav = document.getElementById('sideNav');
+    sideNav.classList.toggle('collapsed');
+  }
+</script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ref</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* comment */
+  </style>
+</head>
+<body>
+
+<!-- Sticky and Resizable Sidebar -->
+<div class="side-nav" id="sideNav">
+    <div class="resizer" id="resizer"></div> <!-- Resize handle -->
+    <ul id="navList"></ul>
+</div>
+
+<!-- Main Content -->
+<main class="main_content">
+
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+
+    <h1>cshrc</h1>
+<pre>
+My old cshrc
+limit coredumpsize 0
+
+setenv STDB /slowfs/tcadqam2/users/mavilla
+
+alias mytcad1 "source /u/tcadprod/site/sentaurus_settings.csh"
+#mytcad1
+
+alias mytcad2 "setenv SWB_SITE_SETTINGS_DIR /u/tcadprod/site/swb_settings;module load lsf/tcad"
+#mytcad2
+
+alias l2setup "source /slowfs/tcadqam2/users/mavilla/p4/setup_testing"
+#l2setup
+
+setenv COMPARATOR /remote/tcadrd05/tcad/run_L2_main/productiontools/comparators
+alias cmp "setenv PATH ${COMPARATOR}:/remote/tcadrd05/tcad/run_L2_main/productiontools/productiontools_files:${PATH}"
+#cmp
+
+alias setgcc "setenv PATH '/depot/qsc/QSCW/GCC/bin:/depot/qsc/QSCW/binutils/bin:${PATH}'"
+
+alias myxterm "bsub -R 'select[qsc=w]' -app iheavy -J 'Interactive Job' -Is xterm &"
+alias rt "runtests2 -all"
+alias rte "runtests2 -e -all"
+
+alias vrel "setenv STRELEASE V-2024.03"
+
+alias path "echo $PATH"
+
+echo $PATH
+
+
+
+
+alias mycsh "gedit ~/.cshrc.mavilla &"
+alias resetpath "setenv PATH `getconf PATH`"
+set localset=0
+
+#### EDAG New Farm Pilot Testing #################
+alias nf "setenv PATH /global/lsf/tools/bin:${PATH}"
+setenv LSF_JOB_HARNESS 'h1'
+setenv LSF_JOB_PRODUCT 'SentaurusTCAD'
+setenv LSF_JOB_PROJECT 'p1'
+setenv  LSF_JOB_WE 60
+
+alias myxterm2 "source /global/lsf/cells/edag_int/conf/cshrc.lsf; bsub -R 'rusage[mem=2G]' -app int_msmtcad -Is xterm &"
+
+<p>alias myxterm2a "source /global/lsf/cells/edag_int/conf/cshrc.lsf; bsub -R 'rusage[mem=2G]' -R 'select[os=AlmaLinux8.4]' -app int_msmtcad -Is xterm &"
+</p>
+
+
+########################
+if $localset then
+alias mytcad "setenv SWB_SITE_SETTINGS_DIR /u/tcadprod/site/swb_settings;module load lsf/tcad"
+#mytcad
+
+#setenv STDB /remote/tcad2/mavilla
+setenv STDB /slowfs/tcadqam2/users/mavilla
+#source /u/tcadprod/site/sentaurus_settings.csh
+
+alias mycsh "gedit ~/.cshrc.mavilla &"
+#mycsh
+limit coredumpsize 0
+echo $PATH
+
+setenv COMPARATOR /remote/tcadrd05/tcad/run_L2_main/productiontools/comparators
+alias cmp "setenv PATH ${COMPARATOR}:/remote/tcadrd05/tcad/run_L2_main/productiontools/productiontools_files:${PATH}"
+cmp
+
+
+setenv STROOT /slowfs/us01tcadbld1/tcadprod/main/ci2builds
+setenv STRELEASE W-2024.09-L1-20240521_8957673
+
+alias vrel "setenv STRELEASE V-2024.03"
+
+
+alias myxterm "bsub -R 'select[qsc=w]' -app iheavy -J 'Interactive Job' -Is xterm &"
+#myxterm
+xrdb -override ~/.Xresources
+
+alias resetpath "setenv PATH `getconf PATH`"
+alias l2setup "source /slowfs/tcadqam2/users/mavilla/p4/setup_testing"
+alias rt "runtests2 -all"
+alias rte "runtests2 -e -all"
+endif
+
+
+#############################
+if 0 then
+
+# TCAD Settings
+
+
+#setenv SNPSLMD_LICENSE_FILE "26585@us01snpslmd2:26585@us01snpslmd3:27020@tcadprod37:26585@us01snpslmd1:26585@de02tcadadmin"
+
+<p>#setenv SNPSLMD_LICENSE_FILE 26585@us01snpslmd2.internal.synopsys.com:26585@us01snpslmd3.internal.synopsys.com:27020@tcadprod37.internal.synopsys.com:26585@us01snpslmd1.internal.synopsys.com:26585@de02tcadadmin.internal.synopsys.com
+</p>
+setenv COMPARATOR /remote/tcadrd05/tcad/run_L2_main/productiontools/comparators
+
+
+alias path_1 "setenv PATH /u/isedist/sentaurus/bin:${PATH}"
+
+alias path_2  "setenv PATH /slowfs/us01tcadbld1/tcadprod/ci2builds/bin:${PATH}"
+alias path_2b  "setenv PATH /slowfs/us01tcadbld1/tcadprod/main/ci2builds/bin:${PATH}"
+
+
+alias path_2c "setenv PATH /slowfs/us01tcadbld1/tcadprod/V-2023.09/ci2builds/bin:${PATH}"
+alias path_2d "setenv PATH /slowfs/us01tcadbld1/tcadprod/V-2024.03/ci2builds/bin:${PATH}"
+alias path_2c "setenv PATH /slowfs/us01tcadbld1/sce/v2024.03_dev/sentaurus/latest/bin:${PATH}"
+alias path_2d "setenv PATH /slowfs/us01tcadbld1/sce/v2024.03_dev/sentaurus/V-2024.03-BETA-20240201/bin:${PATH}"
+
+alias path_2e "setenv PATH /slowfs/us01tcadbld1/sce/v2024.03_dev/sentaurus/V-2024.03/bin:${PATH}"
+                            
+alias path_3 "setenv PATH /slowfs/us01tcadbld1/sce/v2023.09_dev/sentaurus/latest/bin:${PATH}"
+
+alias path_4 "setenv PATH /slowfs/us01tcadbld1/sce/v2023.09_rel/sentaurus/latest/bin:${PATH}"
+
+alias path_m2  "setenv PATH /remote/swefs1/PE/products/tcad/v2023.09_dev/image/nightly/tcad_optimize/D20231030_8515123/Installed/sentaurus/V-2023.12/bin:${PATH}"
+
+
+#path_m1
+path_2e
+
+
+alias urel "setenv STRELEASE U-2022.12"
+alias usp1 "setenv STRELEASE U-2022.12-SP1"
+alias vl1 "setenv STRELEASE V-2023.12-L1"
+alias vl0 "setenv STRELEASE V-2023.12-L0"
+alias wl1 "setenv STRELEASE W-2024.09-L1"
+
+alias rel "setenv STRELEASE W-2024.09-L1-20231124_8577295"
+
+
+
+alias cmp "setenv PATH ${COMPARATOR}:/remote/tcadrd05/tcad/run_L2_main/productiontools/productiontools_files:${PATH}"
+cmp
+
+alias path_raphael_fx "setenv PATH /global/apps/raphael_fx_2023.09/bin:${PATH}"
+alias path_raphael_fx2 "setenv PATH /remote/tcad01/sce/v2023.09_dev/raphael_fx/V-2023.12-PRE-20230903/bin:${PATH}"
+alias path_raphael_fx3 "setenv PATH /slowfs/us01tcadbld1/sce/main/raphael_fx/latest/bin:${PATH}"
+#path_raphael_fx3
+
+
+
+
+
+setenv path_trans /remote/tcad_cae_hp7/mavilla
+
+echo $PATH
+echo "*****************************"
+endif
+
+
+
+
+
+#############################
+if 0 then
+
+alias diff 'tkdiff \!:1 .ref/\!:1'
+
+alias diff 'tkdiff \!:1 ../Ref/\!:1'
+alias diff 'tkdiff \!:1 ../Ref_/\!:1'
+
+alias diff 'tkdiff \!:1 /slowfs/tcadqam2/users/mavilla/QA_L2/groupB/FH_New_Technology_Examples/NTG_2_/2023_10_03_/SBandForSPMC/PROJECT/\!:1'
+
+/slowfs/tcadqam2/users/mavilla/QA_L2/groupB/FH_New_Technology_Examples/NTG_2_/2023_10_03_/SBandForSPMC/PROJECT
+
+echo "-----------------------------"
+
+unsetenv STDB
+unsetenv TEMP
+unsetenv STROOT
+unsetenv STRELEASE
+unsetenv SWB_SITE_SETTINGS_DIR
+
+# TCAD Settings
+setenv PATH /slowfs/us01tcadbld1/tcadprod/ci2builds/bin:/u/isedist/sentaurus/bin:${PATH}
+
+setenv SNPSLMD_LICENSE_FILE "26585@us01snpslmd2:26585@us01snpslmd3:27020@tcadprod37:26585@us01snpslmd1:26585@de02tcadadmin"
+
+setenv STRELEASE U-2022.12
+setenv STDB /remote/tcad2/mavilla/DB
+
+#source /global/lsf/cells/tcad/conf/cshrc.lsf
+#setenv SWB_SITE_SETTINGS_DIR /remote/tcad21/skylinep10/lsf
+
+setenv SWB_SITE_SETTINGS_DIR /u/tcadprod/site/swb_settings
+module load lsf/tcad
+
+alias paths "echo 'stdb1=/remote/tcad2/mavilla/DB \nstdb2=/remote/tcad_cae_hp7/mavilla  \nstdb3=/slowfs/tcadqam2/users/mavilla'"
+
+endif
+
+
+
+all.csh
+################################################################################
+# This file is meant to be sourced when using a csh.
+# it configures your environment to run the most common latest released tools 
+# or when called with the argument --dev the latest development version
+################################################################################
+
+#####
+# defaults
+set configs="farm sentaurus raphael_fx spx qatk hspice siwb icvwb rsoft tsuprem4 p4 testing"
+set load_dependencies=1
+set verbosity=0
+set dev=0
+set usage=0
+
+#####
+# get absolute path of this file, when sourced from login shell
+# TODO: if lsof is not found we add /usr/sbin to the path, as on centos lsof is there.
+# however this potentially clutters user's path, better work with a lsof_binary variable
+if (`which lsof > /dev/null; echo $?` != 0) then
+    setenv PATH ${PATH}:/usr/sbin
+    if (`which lsof > /dev/null; echo $?` != 0) echo "Error: cannot find lsof" && exit 1
+endif
+set this_file=`lsof -w +p "$$" | grep -oE '\S*all\.csh'`
+set this_dir=`dirname $this_file`
+
+#####
+# auto populate modules using all *_settings.csh in same directory
+# this is not working, echoing the command is correct, but executing the source command fails ???
+# set configs=`cd ${this_dir} ; ls -1 *_settings.csh | awk -F"_" '{$NF="";print $0}' | sed 's/\s*$//;s/ /_/g'`
+
+#####
+# get arguments
+foreach a ($argv)
+    if (( "$a" == "-h" ) || ( "$a" == "--help" )) then
+        set usage=1
+    else if (( "$a" == "-v" ) || ( "$a" == "--verbose" )) then
+        set verbosity=1
+    else if (( "$a" == "-vv" ) || ( "$a" == "--debug" )) then
+        set verbosity=2
+    else if (( "$a" == "-d" ) || ( "$a" == "--dev" )) then
+        set dev=1
+    else if (( "$a" == "-n" ) || ( "$a" == "--no-dependencies" )) then
+        set load_dependencies=0
+    endif
+end
+if ($verbosity >= 2) echo "this_file=$this_file this_dir=$this_dir verbosity=$verbosity usage=$usage dev=$dev"
+
+#####
+# help message
+if ($usage == 1) then
+    echo "Usage: `basename $this_file` [options]"
+    echo "  Loads settings like path, and license server other environment variables"
+    echo "  for most common AE tools that is:"
+    echo "  $configs."
+    echo ""
+    echo "Options:"
+    echo "  -d, --dev: loads the development version of the tool."
+    echo "  -n, --no-dependencies: will not source dependent settings."
+    echo "  -v, --verbose: a bit output, especially the path loaded."
+    echo "  -vv, --debug: even more output."
+    echo "  -h, --help: this message."
+    exit 0
+endif
+
+if ($verbosity >= 2) echo "configs=${configs}"
+foreach c ($configs)
+    set source_file="${this_dir}/${c}_settings.csh $argv"
+    if ($verbosity >= 2) echo "  source ${source_file}"
+    source ${source_file}
+end
+
+
+
+sentaurus_settings.csh
+################################################################################
+# This file is meant to be sourced when using a csh.
+# it configures your environment to run the latest released Sentaurus version
+# or when called with the argument --dev the latest development version
+################################################################################
+
+#####
+# defaults
+set config=sentaurus
+set binary=sdevice
+set module=sentaurus
+set dev_binary_path="/u/tcadprod/sentaurus/dev/main/bin"
+set dependencies="license_settings.csh"
+set load_dependencies=1
+set verbosity=0
+set dev=0
+set usage=0
+
+#####
+# get absolute path of this file, when sourced from login shell
+if (`which lsof > /dev/null; echo $?` != 0) then
+    setenv PATH ${PATH}:/usr/sbin
+    if (`which lsof > /dev/null; echo $?` != 0) echo "Error: cannot find lsof" && exit 1
+endif
+set this_file=`lsof +p "$$" |& grep -oE "\S+${config}_settings\.csh"`
+set this_dir=`dirname $this_file`
+
+#####
+# get arguments
+foreach a ($argv)
+    if (( "$a" == "-h" ) || ( "$a" == "--help" )) then
+        set usage=1
+    else if (( "$a" == "-v" ) || ( "$a" == "--verbose" )) then
+        set verbosity=1
+    else if (( "$a" == "-vv" ) || ( "$a" == "--debug" )) then
+        set verbosity=2
+    else if (( "$a" == "-d" ) || ( "$a" == "--dev" )) then
+        set dev=1
+    else if (( "$a" == "-n" ) || ( "$a" == "--no-dependencies" )) then
+        set load_dependencies=0
+    endif
+end
+
+#####
+# report what is happening
+if ($verbosity >= 1) echo "sourcing settings for $config"
+if ($verbosity >= 2) echo "    this_file=$this_file this_dir=$this_dir verbosity=$verbosity usage=$usage dev=$dev"
+
+#####
+# help message
+if ($usage == 1) then
+    echo "Usage: `basename $this_file` [options]"
+    echo "  Loads settings like path, gcc and license server for Sentaurus TCAD "
+    echo "  latest release or development version. It also cleans the path "
+    echo "  from this tool."
+    echo ""
+    echo "Options:"
+    echo "  -d, --dev: loads the development version of the tool."
+    if ("$dependencies" != "") then
+    echo "  -n, --no-dependencies: will not source dependent settings like:"
+    echo "    $dependencies"
+    endif
+    echo "  -v, --verbose: a bit output, especially the path loaded."
+    echo "  -vv, --debug: even more output."
+    echo "  -h, --help: this message."
+    exit 0
+endif
+
+#####
+# load dependencies
+if ($load_dependencies == 1 && "$dependencies" != "") then
+    foreach dep ($dependencies)
+    set dep_file=`dirname $this_file`/$dep
+    if ($verbosity >= 2) echo "    source $dep_file"
+    source $dep_file $argv
+    end
+endif
+
+#####
+# unload any module
+if (`which module > /dev/null; echo $?` == 0) then
+    set module_loaded=`(module -l list > /dev/null) |& cat | grep -oE "$module\S+"`
+    if ($verbosity >= 2) echo "    module_loaded='$module_loaded'"
+    if ("$module_loaded" != "") then 
+    if ($verbosity >= 2) echo "    unload module $module_loaded"
+    module unload $module
+    endif
+endif
+
+#####
+# remove any tool related paths found by which -a
+set binary_in_path=`which $binary > /dev/null; echo $?`
+if ($verbosity >= 2) echo "    binary_in_path=$binary_in_path"
+if ($binary_in_path == 0) then
+    if ($verbosity >= 2) echo "    cleaning path..."
+    set bin_paths=`/usr/bin/which -a -- $binary`
+    if ($verbosity >= 2) echo "    bin_paths=${bin_paths}"
+    foreach bin ($bin_paths)
+    if ($verbosity >= 2) echo "    bin: $bin"
+    set dir=`dirname $bin`
+    if ($verbosity >= 2) echo "    Found $binary in PATH removing it: $dir "
+    setenv PATH `echo ":${PATH}:" | sed "s|:${dir}:|:|; s|^:||; s|:"\$"||"`
+    end
+endif
+
+#####
+# remove gcc from path
+setenv PATH `echo ":${PATH}:" | sed -e "s|:/depot/qsc/QSC./GCC/bin/*:|:|g; s|^:||; s|:"\$"||"`
+setenv PATH `echo ":${PATH}:" | sed -e "s|:/depot/qsc/QSC./binutils/bin/*:|:|g; s|^:||; s|:"\$"||"`
+
+#####
+# set path to release or development version
+setenv PATH ${dev_binary_path}:${PATH}
+# ensure ALL releases are available through STRELEASE and -rel 
+setenv ST_ALL_INSTROOTS 1
+# ensure user gets correct queue files
+setenv SWB_SITE_SETTINGS_DIR ${this_dir}/swb_settings
+
+if ($dev >= 1) then
+    setenv STRELEASE W-2024.09-L1
+else
+    setenv STRELEASE V-2024.03
+endif
+if ($verbosity >= 2) echo "  STRELEASE=$STRELEASE"
+
+# Make QSC GCC compiler available for compilation of S-Device PMIs
+set qsc=`echo $STRELEASE|awk -F"-" '{print $1}'`
+if ($verbosity >= 2) echo "    qsc=$qsc"
+if ($verbosity >= 2) echo "    set path for gcc QSC$qsc"
+setenv PATH "/depot/qsc/QSC$qsc/GCC/bin:/depot/qsc/QSC$qsc/binutils/bin:${PATH}"
+if ($verbosity >= 2) echo "    gcc from: `which gcc|xargs dirname`"
+
+#####
+# report which tool
+if (`which $binary > /dev/null; echo $?` == 0) then
+    if ($verbosity >= 1) echo "  $binary available under: `which $binary | xargs dirname`"
+else
+    echo "  Error: $config does not provide $binary"
+endif
+
+</pre>
+    
+
+</section>
+
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+
+<h1>Section template</h1>
+
+<p>section para </p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+---yourtext---
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div></section> <!---------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+</main> <!----Main Content end ----------------------------->
+<script src="script.js"></script>
+</body>
+</html>

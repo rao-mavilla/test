@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>java</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Sticky and Resizable Sidebar -->
+<div class="side-nav" id="sideNav">
+    <div class="resizer" id="resizer"></div> <!-- Resize handle -->
+    <ul id="navList"></ul>
+</div>
+
+<!-- Main Content -->
+<main class="main_content">
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+<h1>Java  Syntax</h1>
+
+<div class="code_out_container"><div class="myCode"><pre>
+public <div class="tooltip">class Eg1<span class="tooltiptext">Every line of code that runs in Java must be inside a class. 
+And the class name should always start with an uppercase first letter.
+The name of the java file must match the class name.</span></div> {
+    { public static <div class="tooltip">void<span class="tooltiptext">return value of this method</span></div> <div class="tooltip">main<span class="tooltiptext">The main() method is required.
+Only code inside the main() method will be executed.</span></div> (String[] args) {
+        <div class="tooltip">System.out.println<span class="tooltiptext">System is a built-in Java class that contains useful members,
+such as out, which is short for "output". 
+The println() method, short for "print line", is used to print a value to the screen (or a file).</span></div> ("some output");
+    }
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+some output
+</pre></div></div></section> <!---------------------------------------------->
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+<h1>Variables, loops and functions</h1>
+<p>section para </p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+public class Eg2_vars_loops_fns {
+    public static void main(String[] args) {        
+        //base vars
+        int var1 = 7;
+        double var2 = 8.0;
+        char char1 = 'Z';
+        System.out.println("var1*var2= " + var1*var2);
+        System.out.println("char1=" + char1);
+
+        //derived datatypes
+        String string1 = "John";
+        double var3 = string1.length();
+        System.out.println(var3);   
+        
+        //if-else
+        String fnout = "Raj";
+        if (fnout.equals("Raj")) {
+            System.out.println(fnout + " is good"); 
+    
+        }
+        else if (fnout.equals("Rani")){
+            System.out.println(fnout + " is great"); 
+    
+        }
+        else {
+            System.out.println("I don't know");   
+        }
+
+        //for loop
+        for (int i = 0; i &lt; 5; i++) {
+            if (i == 1) {
+                continue;
+                }
+            System.out.println("for loop: " + i);
+            if (i == 3) {
+                break;
+                }
+            }
+
+        //while loop
+        int i = 0;
+        while (i  5) {
+        System.out.println("while loop: " + i);
+        i++;
+        }
+
+        //Static method call
+        myMethod("Raju",30);
+
+        //Publuc method call
+        Eg2_vars_loops_fns myObj = new Eg2_vars_loops_fns();
+        myObj.myMethod2("Rani",25);
+        //end of main//
+    }
+    
+    //Static method
+    static void myMethod(String fname, int age) {
+        System.out.println("Static mymethod:" + fname + " is " + age);
+    }
+
+    //Public method
+    public void myMethod2(String fname, int age) {
+        System.out.println("Public mymethod2:" + fname + " is " + age);
+    }
+}
+</pre>    
+</div>
+
+<div class="outputFrame"><pre>
+var1*var2= 56.0
+char1=Z
+4.0
+Raj is good
+for loop: 0
+for loop: 2
+for loop: 3
+while loop: 0
+while loop: 1
+while loop: 2
+while loop: 3
+while loop: 4
+Static mymethod:Raju is 30
+Public mymethod2:Rani is 25
+</pre></div></div></section> <!---------------------------------------------->
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+
+<h1>Section template</h1>
+
+<p>section para </p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+---yourtext---
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div></section> <!---------------------------------------------->
+
+
+
+
+
+
+</main> <!----Main Content end ----------------------------->
+<script src="script.js"></script>
+</body>
+</html>

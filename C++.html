@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>home</title>
+  <link rel="stylesheet" href="styles.css">  
+</head>
+
+<body style="--container: min(95%, 1780px);">
+    <div class="topnav"> 
+        <nav class="container">
+			<a href="index.html">Home</a>
+			<a href="swb.html">SWB</a>
+			<a href="sde.html">SDE</a>
+			<a href="sprocess.html">S-Process</a>
+			<a href="smesh.html">S-Mesh</a>
+			<a href="sdevice.html">S-Device</a>
+			<a href="svisual.html">S-Visual</a>
+			<a href="l2.html">L2</a>
+			<a>|</a>
+			<a href="linux.html">Linux</a>
+			<a href="tcl.html">tcl</a>
+			<a href="python.html">python</a>
+            <a href="html.html">html</a>
+            <a href="C++.html">C++</a>
+            <a>|</a>
+			<a href="temp.html">temp</a>
+			<a href="queries.html">queries</a>
+        </nav>
+    </div>
+    <div class="sidenav1 sidenav ">
+        <ul>
+            <li><a href="#id1">Intro </a></li>
+            <li><a href="#id2">Flow Control </a></li>
+            <li><a href="#id3">Functions </a></li>
+            <li><a href="#id4">Arrays & Strings </a></li>
+            <li><a href="#id5">Structures </a></li>
+            <li><a href="#id6">Object & Class </a></li>
+            <li><a href="#id7">Pointers </a></li>
+            <li><a href="#id8">Inheritance </a></li>
+
+        </ul>
+    </div>
+    <div class="sidenav2 sidenav">
+        <ul>
+            <li><a href="#start">Start </a></li>
+
+        </ul>
+    </div>
+
+    <div class="content">           
+
+<!-- main content starts here-->
+<section>
+<pre>
+<h1 id="id1">Intro</h1>
+https://www.programiz.com/cpp-programming/examples
+
+https://www.programiz.com/cpp-programming/variables-literals
+
+
+******************************* eg *********************************
+#include &lt;iostream&gt;
+
+    int main() {
+        std::cout << "hello world new";
+        return 0;
+    }
+        
+
+******************************* eg *********************************
+#include <iostream>
+
+    int main() {
+        std::cout << "enter two numbers" << std::endl;
+        int n1 = 0, n2 = 0;
+        std::cin >> n1 >> n2;
+        std::cout << "Sum of " << n1 << " and " << n2 << " is " << n1+n2 << std::endl;
+        return 0;
+    }
+            
+******************************* eg *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+        cout << "enter two numbers" << endl;
+        int n1 = 0, n2 = 0;
+        cin >> n1 >> n2;
+        cout << "Sum of " << n1 << " and " << n2 << " is " << n1+n2 << endl;
+        return 0;
+    }
+
+    
+******************************* eg *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main()
+    {    
+        int divisor, dividend, quotient, remainder;
+    
+        cout << "Enter dividend: ";
+        cin >> dividend;
+    
+        cout << "Enter divisor: ";
+        cin >> divisor;
+    
+        quotient = dividend / divisor;
+        remainder = dividend % divisor;
+    
+        cout << "Quotient = " << quotient << endl;
+        cout << "Remainder = " << remainder;
+    
+        return 0;
+    }
+
+<h1 id="id2">Flow Control</h1>
+
+1) if ... else if ... else
+2) switch
+
+if (condition1) {
+    // code block 1
+  }
+  else if (condition2){
+    // code block 2
+  }
+  else {
+    // code block 3
+  }
+
+switch (expression)  {
+    case constant1:
+        // code to be executed if 
+        // expression is equal to constant1;
+        break;
+
+    case constant2:
+        // code to be executed if
+        // expression is equal to constant2;
+        break;
+        .
+        .
+        .
+    default:
+        // code to be executed if
+        // expression doesn't match any constant
+}
+
+
+There are 3 types of loops in C++.
+1) for loop
+2) while loop
+3) do...while loop
+4) The break statement is usually used with decision-making statements.
+
+<h2> if else if</h2>
+
+*******************************  Even or Odd using if else *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+      int n;
+    
+      cout << "Enter an integer: ";
+      cin >> n;
+    
+      if ( n % 2 == 0)
+        cout << n << " is even.";
+      else
+        cout << n << " is odd.";
+    
+      return 0;
+    }
+    
+******************************* Even or Odd using ternary operators *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+      int n;
+    
+      cout << "Enter an integer: ";
+      cin >> n;
+        
+      (n % 2 == 0) ? cout << n << " is even." :  cout << n << " is odd.";
+        
+      return 0;
+    }
+    
+******************************* Check Vowel or a Consonant Manually *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+        char c;
+        bool isLowercaseVowel, isUppercaseVowel;
+    
+        cout << "Enter an alphabet: ";
+        cin >> c;
+    
+        // evaluates to 1 (true) if c is a lowercase vowel
+        isLowercaseVowel = (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
+    
+        // evaluates to 1 (true) if c is an uppercase vowel
+        isUppercaseVowel = (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
+    
+        // show error message if c is not an alphabet
+        if (!isalpha(c))
+          printf("Error! Non-alphabetic character.");
+        else if (isLowercaseVowel || isUppercaseVowel)
+            cout << c << " is a vowel.";
+        else
+            cout << c << " is a consonant.";
+    
+        return 0;
+    }
+
+******************************* Sum of Natural Numbers using loop *********************************
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+        int n, sum = 0;
+    
+        cout << "Enter a positive integer: ";
+        cin >> n;
+    
+        for (int i = 1; i <= n; ++i) {
+            sum += i;
+        }
+    
+        cout << "Sum = " << sum;
+        return 0;
+    }
+
+******************************* Leap year *********************************
+/*
+All years which are perfectly divisible by 4 are leap years 
+except for century years (years ending with 00), 
+which are leap years only if they are perfectly divisible by 400.
+*/
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "enter year" << endl;
+    int n1 = 0;
+    cin >> n1;
+
+    if ( n1 % 100 == 0 ) {
+        if ( n1 % 400 == 0)
+            cout << "The year " << n1 << " is a leap year \n";
+        else
+            cout << "The year " << n1 << " is not a leap year \n";
+        }
+    else if ( n1 % 4 == 0)
+        cout << "The year " << n1 << " is a leap year \n";
+    else
+        cout << "The year " << n1 << " is not leap year \n";
+
+    return 0;
+}
+
+******************************* Generate Fibonacci Sequence Up to a Certain Number *********************************
+/* The Fibonacci sequence is a series where the next term is the sum of the previous two terms. 
+The first two terms of the Fibonacci sequence is 0 followed by 1.
+*/
+#include <iostream>
+    using namespace std;
+    
+    int main() {
+        int t1 = 0, t2 = 1, nextTerm = 0, n;
+    
+        cout << "Enter a positive number: ";
+        cin >> n;
+    
+        // displays the first two terms which is always 0 and 1
+        cout << "Fibonacci Series: " << t1 << ", " << t2 << ", ";
+    
+        nextTerm = t1 + t2;
+    
+        while(nextTerm <= n) {
+            cout << nextTerm << ", ";
+            t1 = t2;
+            t2 = nextTerm;
+            nextTerm = t1 + t2;
+        }
+        return 0;
+    }
+
+******************************* eg *********************************
+
+
+</pre>
+</section>
+<!-- main content ends here-->
+
+</div>
+</div>
+</body>
+</html>

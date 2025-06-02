@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ref</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* comment */
+  </style>
+</head>
+<body>
+
+<!-- Sticky and Resizable Sidebar -->
+<div class="side-nav" id="sideNav">
+    <div class="resizer" id="resizer"></div> <!-- Resize handle -->
+    <ul id="navList"></ul>
+</div>
+
+<!-- Main Content -->
+<main class="main_content">
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+
+<h1>Pipeline as a code</h1>
+
+<h2>Declarative pipelines</h2>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+pipeline {
+    agent any
+    
+    triggers {
+        pollSCM '*/2 * * * *'
+    }
+    
+    stages {
+            stage('Hello') {
+                steps {
+                    echo 'Hello World'
+                }
+            }
+            
+            stage('test') {
+                steps {
+                    echo 'test'
+                }
+            }
+    }
+    }
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+
+
+
+
+<h2>Scripted pipeline</h2>
+<p>Scripted pipelines were the first version of the “pipeline-as-code” principle.</p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+node {
+
+    stage('hello') { // for display purposes
+            echo 'hello world!'
+    }
+    
+    stage('hello2') { // for display purposes
+        echo 'hello world2!'
+    }
+    
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h2>@Library</h2>
+<p>The @Library annotation is used in Jenkins pipeline scripts to include shared libraries.</p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+@Library('my-shared-library') _  // Include the shared library
+
+pipeline {
+    agent any
+    stages {
+        stage('Example') {
+            steps {
+                script {
+                    // Calling a function from the shared library
+                    myLibraryFunction("Hello from shared library!")
+                }
+            }
+        }
+    }
+}    
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+
+<p>Importing Specific Components from a Library</p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+@Library('my-shared-library') _
+
+import com.example.SharedLibraryUtils
+
+pipeline {
+    agent any
+    stages {
+        stage('Example') {
+            steps {
+                script {
+                    // Use a specific utility class from the library
+                    SharedLibraryUtils.performTask()
+                }
+            }
+        }
+    }
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h2>Seed Job</h2>
+<p>Seed Job is a freestyle job that automates jobs creation automatically.</p>
+<p>A seed Job is a combination of Jenkins modules and groovy code.</p>
+<p>Note: To use seed job do install the plugin name Job DSL</p>
+<a href="https://www.youtube.com/watch?v=s9e_UkdPUTM&ab_channel=LifeOfVipinTech" target="_blank">https://www.youtube.com/watch?v=s9e_UkdPUTM&ab_channel=LifeOfVipinTech</a>
+
+<h3>Creating FreeStyle Job</h3>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+job("test_freestyle_seed_job"){
+    steps {
+        shell('echo Hello World!')
+    }
+}
+</pre></div>
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<p>OR </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+freeStyleJob("test_freestyle_seed_job"){
+    steps {
+        shell('echo Hello World!')
+    }
+}
+</pre></div>
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h3>Creating Pipeline Job</h3>
+<p>section para </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+pipelineJob('test_pipeline_seed_job') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        github('lyfofvipin/jenkins_tutorials')
+                        // url('https://github.com/lyfofvipin/jenkins_tutorials.git')
+                    }
+                }
+            }
+            scriptPath('jobs/First_Jenkinsfile')
+        }
+    }
+}
+</pre></div>
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h3>Creating Jobs Inside Folder</h3>
+<p>section para </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+folder('test_folder') // This will create a folder first
+job("test_folder/test_freestyle_job"){
+    steps {
+        shell('echo Hello World!')
+    }
+}
+
+pipelineJob('test_folder/test_pipeline_job') {
+    definition {
+        cpsScm {
+            scm {
+                git {
+                    remote {
+                        url('https://github.com/lyfofvipin/jenkins_tutorials.git')
+                    }
+                    branches("master")
+                }
+            }
+            scriptPath('jobs/First_Jenkinsfile')
+        }
+    }
+}
+</pre></div>
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+</section> <!---------------------------------------------->
+
+
+
+
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+<h1>Groovy</h1>
+<p><a href="https://onecompiler.com/tutorials/groovy/closures/groovy-closures">https://onecompiler.com/tutorials/groovy/closures/groovy-closures</a></p>
+<p><a href="https://www.groovy-lang.org/structure.html">https://www.groovy-lang.org/structure.html</a></p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+def name = "Groovy"
+int age = 5
+println "Hello, my name is $name and I am $age years old."
+</pre></div>
+
+<div class="outputFrame"><pre>
+Hello, my name is Groovy and I am 5 years old.
+</pre></div></div></section> <!---------------------------------------------->
+
+
+<p>Lists and Maps </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+def fruits = ["apple", "banana", "cherry"]
+def personInfo = [name: "Alice", age: 30]
+
+println "First fruit: ${fruits[0]}"
+println "Person's name: ${personInfo['name']}"
+</pre></div>
+
+<div class="outputFrame"><pre>
+First fruit: apple
+Person's name: Alice
+</pre></div></div>
+
+<h2>Conditinals and loops</h2>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+//conditional, loop
+def num = 10
+if (num > 5) {
+    println "$num is greater than 5"
+} else {
+    println "$num is 5 or less"
+}
+
+println "Fruits in the list:"
+for (fruit in fruits) {
+    println fruit
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+10 is greater than 5
+Fruits in the list:
+apple
+banana
+cherry
+</pre></div></div>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+for (int i = 1; i <= 10; i++) {
+    println i ;
+    }
+</pre></div>
+
+<div class="outputFrame"><pre>
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></div></div>
+
+
+
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+int age = 15;
+
+if ( age &lt= 1 && age >= 0) {
+    println "Infant";
+} else if (age > 1 && age &lt= 3) {
+    println "Toddler";
+} else if (age > 3 && age &lt= 9) {
+    println "Child";
+} else if (age > 9 && age &lt= 18) {
+    println "Teen";
+} else if (age > 18) {
+    println "Adult";
+} else {
+    println "Invalid Age";
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h2>switch</h2>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+int day = 3;
+    
+switch(day){
+    case 1: println "Sunday";
+            break;
+    case 2: println "Monday";
+            break;
+    case 3: println "Tuesday";
+            break;
+    case 4: println "Wednesday";
+            break;
+    case 5: println "Thursday";
+            break;
+    case 6: println "Friday";
+            break;
+    case 7: println "Saturday";
+            break;
+    default:println "Invalid day";
+            break; 
+}
+</pre></div>
+
+<div class="outputFrame"><pre>
+Tuesday
+</pre></div></div>
+
+
+
+<p>Closures (similar to lambdas in python) </p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+fruits.each { println "Fruit: $it" }  // 'it' is the default parameter for closures
+</pre></div>
+
+<div class="outputFrame"><pre>
+Fruit: apple
+Fruit: banana
+Fruit: cherry
+</pre></div></div>
+
+<h2>Functions</h2>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+def greet(String personName) {
+    return "Hello, $personName!"
+}
+println greet("Alice")    
+</pre></div>
+
+<div class="outputFrame"><pre>
+Hello, Alice!
+</pre></div></div>
+
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+def shellOutput = "echo Hello from Groovy".execute().text
+println "Shell command output: $shellOutput"    
+</pre></div>
+
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+<h2>Classes</h2>
+<p>Classes, Constructors, and Inheritance</p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+// 7. Classes, Constructors, and Inheritance
+class Person {
+    String name
+    int age
+
+    // Constructor
+    Person(String name, int age) {
+        this.name = name
+        this.age = age
+    }
+
+    // Method
+    String introduce() {
+        return "Hello, I'm $name and I'm $age years old."
+    }
+}
+
+class Employee extends Person {
+    String position
+
+    Employee(String name, int age, String position) {
+        super(name, age)
+        this.position = position
+    }
+
+    String workIntro() {
+        return "Hello, I'm $name, an $position here."
+    }
+}
+
+def person = new Person("Alice", 30)
+println person.introduce()
+
+def employee = new Employee("Bob", 28, "Engineer")
+println employee.workIntro()    
+</pre></div>
+
+<div class="outputFrame"><pre>
+Hello, I'm Alice and I'm 30 years old.
+Hello, I'm Bob, an Engineer here.
+</pre></div></div>
+
+
+<h2>Import</h2>
+<p>import keyword is used to include specific classes or entire packages </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+// Importing a specific class
+import java.util.Date
+
+def currentDate = new Date()
+println "Current date is: $currentDate"
+
+// Importing an entire package
+import java.util.*
+
+def random = new Random()
+println "Random number: ${random.nextInt(100)}"
+
+// Importing static methods
+import static java.lang.Math.*
+
+def radius = 5
+println "Area of circle: ${PI * pow(radius, 2)}"
+</pre></div>
+
+<div class="outputFrame"><pre>
+Current date is: Tue Jan 28 09:59:28 IST 2025
+Random number: 30
+Area of circle: 78.53981633974483
+</pre></div></div>
+
+<h2>package</h2>
+<p>section para </p>
+
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+mavilla@us01odcvde32163:/slowfs/tcadqam2/users/mavilla/MyDocs/groovy_learn 
+% ls com/example/utils
+MathUtils.groovy
+
+mavilla@us01odcvde32163:/slowfs/tcadqam2/users/mavilla/MyDocs/groovy_learn 
+% cat com/example/utils/MathUtils.groovy 
+package com.example.utils
+
+class MathUtils {
+    static int add(int a, int b) {
+        return a + b
+    }
+}
+
+mavilla@us01odcvde32163:/slowfs/tcadqam2/users/mavilla/MyDocs/groovy_learn 
+% cat eg4_package.groovy 
+import com.example.utils.MathUtils
+println "Sum: ${MathUtils.add(5, 10)}"
+</pre></div>
+
+<div class="outputFrame"><pre>
+mavilla@us01odcvde32163:/slowfs/tcadqam2/users/mavilla/MyDocs/groovy_learn 
+% groovy eg4_package.groovy
+Sum: 15    
+</pre></div></div>
+
+
+
+
+
+
+
+
+
+
+
+</main> <!----Main Content end ----------------------------->
+<script src="script.js"></script>
+</body>
+</html>

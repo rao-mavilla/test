@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>java</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Sticky and Resizable Sidebar -->
+<div class="side-nav" id="sideNav">
+    <div class="resizer" id="resizer"></div> <!-- Resize handle -->
+    <ul id="navList"></ul>
+</div>
+
+<!-- Main Content -->
+<main class="main_content">
+
+
+
+<!-----------------------section----------------------->
+<section  id="content">
+<h1>Modules</h1>
+<h2>module: argparser</h2>
+<p>section para </p>
+<div class="code_out_container"><div class="myCode"><pre>
+---yourtext---
+</pre></div>
+<div class="outputFrame"><pre>
+---yourout----
+</pre></div></div>
+
+
+<h2>module: click</h2>
+<p>A function becomes a Click command line tool by decorating it through click.command().</p> 
+<p>At its simplest, just decorating a function with this decorator will make it into a callable script:</p>
+<p>@click.command(): This decorator turns the function into a CLI command.</p>
+
+<h3>Example</h3>
+<div class="code_out_container"><div class="myCode"><pre>
+  
+import click
+from click import prompt
+
+<div class="tooltip">@click.command()<span class="tooltiptext">A function becomes a Click command line tool by decorating it through click.command()</span></div>
+@click.option("--greeting", default="Hello", help="Greeting to use.")
+@click.option('--age', prompt='your age', help='age')
+@click.option("--verbose", <div class="tooltip">is_flag=True<span class="tooltiptext">indicates that verbose is of boolean type</span></div>, help='verbose mode')
+@click.argument("name")
+@click.argument("gender")
+def greet(name, gender, age, greeting, verbose):
+    """Greets a user with a custom greeting."""
+    click.echo(f"{greeting}, {name}!")
+    click.echo(f"Your age is {age} and you are a {gender}")
+    if verbose:
+        print(f'verbose is boolean with value {verbose}')
+    else:
+        print(f'verbose is boolean with value {verbose}')
+
+if __name__ == "__main__":
+    greet()
+  
+</pre></div>
+<div class="outputFrame"><pre>
+% python eg1_basics.py Raju male                          
+your age: 25
+Hello, Raju!
+Your age is 25 and you are a male
+verbose is boolean with value False
+
+% python eg1_basics.py Raju male --greeting "Hi"
+your age: 26
+Hi, Raju!
+Your age is 26 and you are a male
+verbose is boolean with value False
+
+% python eg1_basics.py Raju male --greeting "Hi" --verbose
+your age: 27
+Hi, Raju!
+Your age is 27 and you are a male
+verbose is boolean with value True
+
+% python eg1_basics.py --help 
+Usage: eg1_basics.py [OPTIONS] NAME GENDER
+
+  Greets a user with a custom greeting.
+
+Options:
+  --greeting TEXT  Greeting to use.
+  --age TEXT       age
+  --verbose        verbose mode
+  --help           Show this message and exit.
+
+</pre></div></div>
+
+<h3>Handling multiple commands</h2>
+<p>section para </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+import click
+
+@click.group()
+def cli():
+    """Main CLI group."""
+    pass
+
+@cli.command()
+def hello():
+    """Says hello."""
+    click.echo("Hello, World!")
+
+@cli.command()
+def goodbye():
+    """Says goodbye."""
+    click.echo("Goodbye!")
+
+if __name__ == "__main__":
+    cli()
+</pre></div>
+<div class="outputFrame"><pre>
+  % python eg2_click_group.py 
+  Usage: eg2_click_group.py [OPTIONS] COMMAND [ARGS]...
+  
+    Main CLI group.
+  
+  Options:
+    --help  Show this message and exit.
+  
+  Commands:
+    goodbye  Says goodbye.
+    hello    Says hello.
+  
+  % python eg2_click_group.py hello
+  Hello, World!
+  
+  % python eg2_click_group.py goodbye
+  Goodbye!
+  
+  % python eg2_click_group.py xxx
+  Usage: eg2_click_group.py [OPTIONS] COMMAND [ARGS]...
+  Try 'eg2_click_group.py --help' for help.
+  
+  Error: No such command 'xxx'.  
+</pre></div></div>
+
+<p>Adding arguments to commands </p>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+  import click
+
+  @click.group()
+  def cli():
+      """Main CLI group."""
+      pass
+  
+  @click.command()
+  @click.argument("name")
+  def hello(name):
+      """Says hello."""
+      click.echo(f"Hello {name}!")
+  
+  @click.command()
+  @click.argument("day")
+  def goodbye(day):
+      """Says goodbye."""
+      click.echo(f"Goodbye. See you on {day}!")
+  
+  # Adding commands to the group
+  cli.add_command(hello)
+  cli.add_command(goodbye)
+  
+  if __name__ == "__main__":
+      cli()
+  
+</pre></div>
+<div class="outputFrame"><pre>
+  % python eg2a_click_group.py --help
+  Usage: eg2a_click_group.py [OPTIONS] COMMAND [ARGS]...
+  
+    Main CLI group.
+  
+  Options:
+    --help  Show this message and exit.
+  
+  Commands:
+    goodbye  Says goodbye.
+    hello    Says hello.
+  
+  % python eg2a_click_group.py hello Raju
+  Hello Raju!
+  
+  % python eg2a_click_group.py goodbye Mon
+  Goodbye. See you on Mon!
+  
+</pre></div></div>
+
+<h3>Nested groups</h3>
+<div class="code_out_container"><div class="myCode"><pre>
+import click
+
+@click.group()
+def cli():
+    pass
+
+@cli.group()
+def math():
+    """Math operations."""
+    pass
+
+@math.command()
+@click.argument("x", type=int)
+@click.argument("y", type=int)
+def add(x, y):
+    """Adds two numbers."""
+    click.echo(f"{x} + {y} = {x + y}")
+
+@math.command()
+@click.argument("x", type=int)
+@click.argument("y", type=int)
+def subtract(x, y):
+    """Subtracts two numbers."""
+    click.echo(f"{x} - {y} = {x - y}")
+
+if __name__ == "__main__":
+    cli()
+  
+</pre></div>
+<div class="outputFrame"><pre>
+% python eg2a_click_nested_group.py         
+Usage: eg2a_click_nested_group.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  math  Math operations.
+
+% python eg2a_click_nested_group.py math
+Usage: eg2a_click_nested_group.py math [OPTIONS] COMMAND [ARGS]...
+
+  Math operations.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  add       Adds two numbers.
+  subtract  Subtracts two numbers.
+
+% python eg2a_click_nested_group.py math add 3 5
+3 + 5 = 8
+
+% python eg2a_click_nested_group.py math subtract 3 5 
+3 - 5 = -2
+  
+</pre></div></div>
+
+
+<h2>module: pandas</h2>
+<h3>Access rows/cols</h3>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+import pandas as pd
+
+# Sample DataFrame
+data = {'ID': [101, 102, 103], 'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}
+df = pd.DataFrame(data)
+print(f'\n---df=\n{df}')
+'''
+Output:
+    ID     Name  Age
+0  101    Alice   25
+1  102      Bob   30
+2  103  Charlie   35
+'''
+
+# df.shape gives the number of rows and columns
+
+# Accessing rows
+# df.index gives the row labels
+row_access_bypos = df.iloc[0]
+print(f'\n---row_access_bypos=df.iloc[0]=\n{row_access_bypos}')
+
+df.index=['row1', 'row2', 'row3'] #setting indices
+print(f'\n---df=\n{df}')
+row_access_bylabel=df.loc['row1']
+print(f"\n---row_access_bylabel=df.loc['row1']=\n{row_access_bylabel}")
+
+print('\n---row access by head and tail')
+print(df.head(2))  # First 2 rows
+print(df.tail(2))  # Last 2 rows
+
+# Access columns
+# df.columns gives the column labels
+
+col_access_bylabel = df['Name']
+print(f"\n---col_access_bylabel=df['Name']=\n{col_access_bylabel}")
+
+col_access_bylabel_multiple = df[['Name', 'Age']]
+print(f"\n---col_access_bylabel_multiple=df['Name']=\n{col_access_bylabel_multiple}")
+
+col_access_bypos = df.iloc[:,1]
+print(f"\n---col_access_bypos=df.iloc[:,1]=\n{col_access_bypos}")
+
+col_access_bypos2 = df.iloc[:,[1,2]]
+print(f"\n---col_access_bypos2=df.iloc[:,[1,2]]=\n{col_access_bypos2}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ </pre></div>
+<div class="outputFrame"><pre>  
+---df=
+    ID     Name  Age
+0  101    Alice   25
+1  102      Bob   30
+2  103  Charlie   35
+
+---row_access_bypos=df.iloc[0]=
+ID        101
+Name    Alice
+Age        25
+Name: 0, dtype: object
+
+---df=
+        ID     Name  Age
+row1  101    Alice   25
+row2  102      Bob   30
+row3  103  Charlie   35
+
+---row_access_bylabel=df.loc['row1']=
+ID        101
+Name    Alice
+Age        25
+Name: row1, dtype: object
+
+---row access by head and tail
+        ID   Name  Age
+row1  101  Alice   25
+row2  102    Bob   30
+        ID     Name  Age
+row2  102      Bob   30
+row3  103  Charlie   35
+
+---col_access_bylabel=df['Name']=
+row1      Alice
+row2        Bob
+row3    Charlie
+Name: Name, dtype: object
+
+---col_access_bylabel_multiple=df['Name']=
+          Name  Age
+row1    Alice   25
+row2      Bob   30
+row3  Charlie   35
+
+---col_access_bypos=df.iloc[:,1]=
+row1      Alice
+row2        Bob
+row3    Charlie
+Name: Name, dtype: object
+
+---col_access_bypos2=df.iloc[:,[1,2]]=
+          Name  Age
+row1    Alice   25
+row2      Bob   30
+row3  Charlie   35
+
+Process finished with exit code 0  
+</pre></div></div>
+
+<h3>Edit rows/cols</h3>
+<div class="code_out_container"><div class="myCode" oninput="adjustHeight(this)"><pre>
+import pandas as pd
+
+# Sample DataFrame
+data = {'ID': [101, 102, 103], 'Name': ['Alice', 'Bob', 'Charlie'], 'Age': [25, 30, 35]}
+df = pd.DataFrame(data)
+df.index = ['a', 'b', 'c']  # Custom index
+print(f'\n---df=\n{df}')
+
+'''
+Output:
+    ID     Name  Age
+a  101    Alice   25
+b  102      Bob   30
+c  103  Charlie   35
+'''
+
+print('\n*** Edit rows')
+#Method 1: Updating a Row
+df.loc['b', :] = [104, 'Robert', 32]  # Update all values in row 'b'
+print(f'\n---df=\n{df}')
+
+#Method 2: Adding a New Row
+df.loc['d'] = [105, 'David', 28]  # Append a new row
+print(f'\n---df=\n{df}')
+
+#Method 3: Deleting a Row
+df.drop('c', inplace=True)  # Delete row with index 'c'
+print(f'\n---df=\n{df}')
+
+print('\n*** Edit columns')
+#Method 1: Adding a New Column
+df['Salary'] = [50000, 60000, 70000]  # Add a new column
+print(f'---df=\n{df}')
+
+#ethod 2: Renaming a Column
+df.rename(columns={'Age': 'Years'}, inplace=True)
+print(f'\n---df=\n{df}')
+
+#Method 3: Deleting a Column
+df.drop(columns=['Salary'], inplace=True)
+print(f'\n---df=\n{df}')
+
+print('*** Read single element')
+# Method 1: Using .at[] (Fast for Single Value)
+print(df.at['b', 'Name'])  # Output: 'Robert'
+
+# Method 2: Using .iat[] (Fast for Positional Access)
+print(df.iat[1, 1])  # Output: 'Robert'
+
+# Method 3: Using .loc[] and .iloc[]
+print(df.loc['b', 'Name'])
+print(df.iloc[1, 1])
+
+print('*** Edit single element')
+#Method 1: Using .at[]
+df.at['b', 'Age'] = 35
+
+# Method 2: Using .iat[]
+df.iat[1, 2] = 40  # Change second row, third column
+</pre></div>
+<div class="outputFrame"><pre>
+
+---df=
+    ID     Name  Age
+a  101    Alice   25
+b  102      Bob   30
+c  103  Charlie   35
+
+*** Edit rows
+
+---df=
+    ID     Name  Age
+a  101    Alice   25
+b  104   Robert   32
+c  103  Charlie   35
+
+---df=
+    ID     Name  Age
+a  101    Alice   25
+b  104   Robert   32
+c  103  Charlie   35
+d  105    David   28
+
+---df=
+    ID    Name  Age
+a  101   Alice   25
+b  104  Robert   32
+d  105   David   28
+
+*** Edit columns
+---df=
+    ID    Name  Age  Salary
+a  101   Alice   25   50000
+b  104  Robert   32   60000
+d  105   David   28   70000
+
+---df=
+    ID    Name  Years  Salary
+a  101   Alice     25   50000
+b  104  Robert     32   60000
+d  105   David     28   70000
+
+---df=
+    ID    Name  Years
+a  101   Alice     25
+b  104  Robert     32
+d  105   David     28
+*** Read single element
+Robert
+Robert
+Robert
+Robert
+*** Edit single element
+
+Process finished with exit code 0  
+</pre></div></div>
+
+<h2>BeautifulSoup</h2>
+<pre class="mypre">
+
+<h3>Creating a Soup Object</h3>
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(html_content, 'html.parser')
+
+<h3>Searching for Elements</h3>
+
+Find the first matching tag soup.find('tag_name') 
+
+Find all matching tags soup.find_all('tag_name') 
+
+Find an element by ID soup.find(id='element_id') 
+
+Find elements by class name soup.find_all(class_='class_name') 
+
+Find elements using CSS selectors soup.select('css_selector') 
+
+<h3>Navigating the HTML Tree</h3>
+Get tag text soup.tag_name.text 
+
+Get tag attributes soup.tag_name['attribute'] 
+
+Find parent tag soup.tag_name.parent 
+
+Find child tags soup.tag_name.children 
+
+Find next sibling soup.tag_name.find_next_sibling() 
+
+Find previous sibling soup.tag_name.find_previous_sibling() 
+
+<h3 style="background-color: rgb(199, 199, 199)">Modifying the HTML Content</h3>
+Replace tag content soup.tag_name.string = "New Content" 
+
+Insert a new tag new_tag = soup.new_tag("p")
+new_tag.string = "Inserted text"
+soup.body.append(new_tag)
+
+Extract a tag soup.tag_name.extract() 
+
+Delete a tag soup.tag_name.decompose() 
+
+<h3>Formatting & Output</h3>
+Prettify the HTML structure print(soup.prettify()) 
+
+Get raw HTML of a tag str(soup.tag_name) 
+  
+</pre>
+</section> <!---------------------------------------------->
+
+<!-----------------------section----------------------->
+<section  id="content">
+<h1>Working with Excel</h1>
+<p>section para </p>
+
+<pre class="mypre">
+  
+  Here’s a tutorial on how to work with Excel files using Python and the `pandas` library, which is used in your code. Additionally, I'll include how to inspect Excel files using `openpyxl` for sheet names and other details.
+  
+  ---
+  
+  ### **1. Install Required Libraries**
+  To work with Excel files, you need the following Python libraries:
+  - `pandas` for reading and manipulating data.
+  - `openpyxl` for working with `.xlsx` files.
+  
+  Install them using pip:
+  ```bash
+  pip install pandas openpyxl
+  ```
+  
+  ---
+  
+  ### **2. Reading an Excel File**
+  You can use `pandas.read_excel()` to read an Excel file.
+  
+  ```python
+  import pandas as pd
+  
+  # Read the entire Excel file
+  excel_file = 'example.xlsx'
+  df = pd.read_excel(excel_file)
+  
+  # Display the first few rows of the data
+  print(df.head())
+  ```
+  
+  ---
+  
+  ### **3. Inspecting the Excel File**
+  To inspect the file for the number of sheets and their names, use `pandas.ExcelFile` or `openpyxl`.
+  
+  #### Using `pandas.ExcelFile`:
+  ```python
+  excel_file = 'example.xlsx'
+  excel_obj = pd.ExcelFile(excel_file)
+  
+  # Get the sheet names
+  sheet_names = excel_obj.sheet_names
+  print(f"Sheet names: {sheet_names}")
+  ```
+  
+  #### Using `openpyxl`:
+  ```python
+  from openpyxl import load_workbook
+  
+  # Load the workbook
+  wb = load_workbook('example.xlsx')
+  
+  # Get the sheet names
+  sheet_names = wb.sheetnames
+  print(f"Sheet names: {sheet_names}")
+  ```
+  
+  ---
+  
+  ### **4. Reading Specific Sheets**
+  You can read individual sheets by specifying the sheet name or index.
+  
+  ```python
+  # Read a specific sheet by name
+  df_sheet1 = pd.read_excel(excel_file, sheet_name='Sheet1')
+  
+  # Read a specific sheet by index (e.g., the first sheet)
+  df_sheet1 = pd.read_excel(excel_file, sheet_name=0)
+  
+  # Display the first few rows
+  print(df_sheet1.head())
+  ```
+  
+  ---
+  
+  ### **5. Reading All Sheets**
+  To read all sheets into a dictionary of DataFrames:
+  ```python
+  # Read all sheets
+  all_sheets = pd.read_excel(excel_file, sheet_name=None)
+  
+  # Iterate through the sheets
+  for sheet_name, df in all_sheets.items():
+      print(f"Sheet: {sheet_name}")
+      print(df.head())
+  ```
+  
+  ---
+  
+  ### **6. Inspecting Data in a Sheet**
+  Once you load a sheet into a DataFrame, you can inspect its structure and contents.
+  
+  ```python
+  # Load a sheet
+  df = pd.read_excel(excel_file, sheet_name='Sheet1')
+  
+  # Inspect the first few rows
+  print(df.head())
+  
+  # Get column names
+  print(f"Columns: {df.columns}")
+  
+  # Get basic statistics
+  print(df.describe())
+  ```
+  
+  ---
+  
+  ### **7. Writing Data Back to an Excel File**
+  You can write a DataFrame to an Excel file using `to_excel()`.
+  
+  ```python
+  # Save the DataFrame to a new Excel file
+  df.to_excel('output.xlsx', index=False)
+  ```
+  
+  ---
+  
+  ### **8. Handling Errors**
+  - If the file is open in another application, you may encounter errors. Ensure the file is closed before accessing it.
+  - Use try-except blocks to handle exceptions gracefully.
+  
+  ```python
+  try:
+      df = pd.read_excel('example.xlsx')
+  except Exception as e:
+      print(f"Error: {e}")
+  ```
+  
+  ---
+  
+  ### **9. Example Workflow**
+  Here’s a complete example that combines the above steps:
+  
+  ```python
+  import pandas as pd
+  from openpyxl import load_workbook
+  
+  # Load the Excel file
+  excel_file = 'example.xlsx'
+  
+  # Inspect the sheet names
+  excel_obj = pd.ExcelFile(excel_file)
+  sheet_names = excel_obj.sheet_names
+  print(f"Sheet names: {sheet_names}")
+  
+  # Read the first sheet
+  df = pd.read_excel(excel_file, sheet_name=sheet_names[0])
+  print(f"Data from {sheet_names[0]}:")
+  print(df.head())
+  
+  # Write the data to a new Excel file
+  df.to_excel('output.xlsx', index=False)
+  print("Data written to output.xlsx")
+  ```
+  
+  ---
+  
+  This tutorial should help you understand how to read, inspect, and manipulate Excel files and their sheets effectively. Let me know if you need further clarification!
+</pre>
+
+</section> <!---------------------------------------------->
+
+
+
+
+</main> <!----Main Content end ----------------------------->
+<script src="script.js"></script>
+</body>
+</html>
