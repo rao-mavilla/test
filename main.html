@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html" />
+
+<!-- CSS Tabs is licensed under Creative Commons Attribution 3.0 - http://creativecommons.org/licenses/by/3.0/ -->
+<style type="text/css">
+
+body {
+font: 100% verdana, arial, sans-serif;
+background-color: #fff;
+}
+
+/* begin css tabs */
+ul#tabnav { /* general settings */
+text-align: left; /* set to left, right or center */
+margin: 0px 0 0 0; /* set margins as desired */
+font: bold 13px verdana, arial, sans-serif; /* set font as desired */
+border-bottom: 1px solid rgb(225, 225, 210); /* set border COLOR as desired */
+list-style-type: none;
+padding: 3px 10px 0px 10px;
+}
+
+ul#tabnav li { /* do not change */
+display: inline-block;
+}
+
+ul#tabnav li.selected { /* settings for selected tab */
+border-bottom: 1px solid #fff; /* set border color to page background color */
+background-color: #394d38; /* set background color to match above border color */
+color: yellow;
+}
+
+ul#tabnav li.dummy { /* settings for selected tab */
+background-color: white; /* set background color to match above border color */
+border: white;
+}
+
+ul#tabnav li { /* settings for all tab links */
+padding: 3px 4px;
+border: 1px solid rgb(200, 208, 200); /* set border COLOR as desired; usually matches border color specified in #tabnav */
+border-bottom: 1px solid #cfc;
+background-color: #cfc; /* set unselected tab background color as desired */
+color:black; /* set unselected tab link color as desired */
+margin-right: 0px; /* set additional spacing between tabs as desired */
+text-decoration: none;
+cursor: pointer;
+}
+
+ul#tabnav li:hover { /* settings for hover effect */
+background: #afa; /* set desired hover color */
+}
+/* end css tabs */
+
+/* FF 100% height iframe */
+html, body, div, iframe { margin:0; padding:0; }
+iframe { display:block; width:100%; border:none; }
+
+h1 {
+    display: inline;
+    float: left;
+    font-size: small;
+    margin: 0;
+    padding: 0 10px;
+}
+
+h2 {
+    display: inline;
+    float: right;
+    font-size: small;
+    margin: 0;
+    padding: 0 10px;
+}
+</style>
+
+<script type="text/javascript">
+
+function updateBody(tabId, page) {
+    document.getElementById(selectedTab).setAttribute("class", "unselected");
+    tab = document.getElementById(tabId)
+    tab.setAttribute("class", "selected");
+    selectedTab = tabId;
+    iframe = document.getElementById("myframe");
+    iframe.src = tab.getAttribute("value");
+}
+
+function init(tabId){
+	updateBody(tabId);
+	updateViewport();	
+	window.onresize = updateViewport;
+}
+
+function updateViewport(){
+	 var viewportheight;
+	 // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	 if (typeof window.innerWidth != 'undefined')
+	 { viewportheight = window.innerHeight }
+
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	 else if (typeof document.documentElement != 'undefined'
+	     && typeof document.documentElement.clientWidth !=
+	     'undefined' && document.documentElement.clientWidth != 0)
+	 { viewportheight = document.documentElement.clientHeight }
+	// older versions of IE
+	 else
+	 { viewportheight = document.getElementsByTagName('body')[0].clientHeight }
+	
+	iframe = document.getElementById("myframe");
+	iframe.style.height = (viewportheight-30)+'px';
+}
+var selectedTab = "tab1"
+</script>
+
+</head>
+
+<body onload="init('tab1');">
+
+<ul id="tabnav">
+    <li id="tab1" class="unselected" onclick="updateBody('tab1')" value="links.html" >Links</li>
+    <li id="tab2" class="unselected" onclick="updateBody('tab2')" value="python.html">Python</li>
+    <li id="tab2b" class="unselected" onclick="updateBody('tab2b')" value="tcl.html">TCL</li>
+    <li id="tab2a" class="unselected" onclick="updateBody('tab2a')" value="cpp.html">C++</li>
+    <li id="tab3" class="unselected" onclick="updateBody('tab3')" value="html.html">html</li>
+    <li id="tab3b" class="unselected" onclick="updateBody('tab3b')" value="java.html">java</li>
+    <li id="tab3c" class="unselected" onclick="updateBody('tab3c')" value="jenkins.html">Jenkins</li>
+    <li id="tab3a" class="unselected" onclick="updateBody('tab3a')" value="ide.html">IDEs</li>
+    <li id="tab3d" class="unselected" onclick="updateBody('tab3d')" value="Linux.html">Linux</li>
+    <span>&emsp;&emsp;&emsp;</span>
+    <li id="tab3e" class="unselected" onclick="updateBody('tab3e')" value="QA.html">QA</li>
+    <span>&emsp;&emsp;&emsp;</span>
+    <li id="tab4" class="unselected" onclick="updateBody('tab4')" value="../..">1work2</li>
+    <li id="tab5" class="unselected" onclick="updateBody('tab5')" value=".">MyHTML</li>
+    <a href="main.html" target="_blank">main</a>
+</ul>
+
+<div>
+    <iframe id="myframe" height="100%" width="100%" frameborder="0"></iframe>
+</div>
+
+</body>
+</html>

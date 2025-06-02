@@ -1,0 +1,186 @@
+
+body {
+  margin: 0;
+  display: flex;
+}
+
+/* Sticky and resizable side navigation */
+.side-nav {
+  width: 250px; /* Default width */
+  min-width: 150px; /* Minimum width */
+  max-width: 800px; /* Maximum width */
+  background-color: #516358ed;
+  padding: 2px;
+  border-right: 1px solid #302d2d;
+  position: sticky; /* Sticky property */
+  top: 0; /* Stick to the top of the viewport */
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Scrollable content */
+  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-size: large;
+  font-weight: bolder;
+  
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 0;    
+
+}
+
+.side-nav li {
+  margin-bottom: 5px;
+  margin: auto;
+}
+
+.side-nav a {
+  text-decoration: none;
+  color: black; /* cmnt */
+  display: block;
+  padding: 5px;
+  border-radius: 6px;
+  background-color: rgb(207, 235, 166); /*cmnt*/
+  border: 3px solid #516358ed; 
+}
+
+.side-nav a:hover {
+  background-color: #e0bb56;
+}
+
+.side-nav .subheading {
+  margin-left: 15px; /* Indent subheadings */
+  /*background-color: bisque; /*cmnt*/
+}
+
+.side-nav .subsubheading {
+  margin-left: 25px; /* Indent subheadings */
+  /*background-color: bisque; /*cmnt*/
+}
+
+li.subheading a {
+  font-size: 15px;
+  padding: 2px;
+  color: blue;
+  background-color: rgb(173, 210, 140);
+}
+
+li.subsubheading a {
+  font-size: 15px;
+  padding: 1px;
+  color: purple;
+}
+
+
+b {
+  color: red;
+}
+
+.mypre {
+  background: rgba(234, 209, 235, 0.95);
+  border-radius: 10px;
+  padding-left: 10px;
+  width: 1200px;
+  overflow-x: scroll;
+}
+
+
+/* Resizer handle */
+.resizer {
+  width: 6px;
+  cursor: ew-resize; /* Horizontal resize cursor */
+  /*background-color: #6d7768;*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.main_content {
+  flex-grow: 1;
+  background-color: #f1f2ebed;
+  padding: 10px;
+}
+
+/* for code */
+.code_out_container {
+    display: flex;
+}
+
+.myCode {
+    width: 80%;
+    /*max-height: 400px;*/
+    border: 1px solid rgb(142, 13, 144);
+    background: rgba(234, 209, 235, 0.95);
+    border-radius: 10px;
+    position: relative;
+    padding-left: 10px;
+    /*resize: none;*/
+    /*overflow: hidden;*/
+}
+
+.outputFrame {
+    background-color: rgb(244, 227, 178);
+    border: 1px solid #5f4e1a;
+    border-radius: 10px;
+    padding-left: 10px;
+    /*margin: 20px 0;*/
+    position: relative;
+    width: 100%;
+    max-height: 400px;
+}
+
+.main_content a {
+    background-color: rgb(236, 237, 152); 
+    border-radius: 5px; 
+    border: 1px solid rgb(146, 146, 120); 
+    text-decoration: none;    
+    color: rgb(9, 25, 195);   
+}
+
+a:hover {
+  background-color: #e0bb56;
+}
+
+
+/* for tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  /*border: 2px solid green; /* */
+  background: rgb(255, 255, 189);  
+  font-weight: bold;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  /*width: 800px;*/
+  background-color: rgb(106, 101, 101);
+  color: yellow;
+  /*text-align: center;*/
+  border-radius: 6px;
+  padding: 5px;
+  border: 1px solid rgb(80, 71, 82);
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+h2 {
+  font-size: larger;
+  color: blue;
+  background: pink;
+}
+
+
+h3 {
+  font-size: large;
+  color: purple;
+}
