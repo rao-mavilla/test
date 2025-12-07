@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Memory Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background: #f2f2f2;
+        }
+        #gameBox {
+            width: 350px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+        }
+        #takeBtn { background: #007bff; color: white; }
+        #submitBtn { background: green; color: white; }
+        #restartBtn { background: orange; color: white; }
+    </style>
+</head>
+<body>
+
+<div id="gameBox">
+    <h2>Number Memory Game</h2>
+
+    <h3>Number:</h3>
+    <div id="numberDisplay" style="font-size: 28px; margin:10px;"></div>
+
+    <h3>Time: <span id="timer">0.00</span> sec</h3>
+
+    <button id="takeBtn">Take Challenge</button>
+
+    <div id="inputSection" style="display:none;">
+        <input id="userInput" type="text" placeholder="Enter number...">
+        <br>
+        <button id="submitBtn">Submit</button>
+    </div>
+
+    <h3>Score: <span id="score">0</span></h3>
+    <h3 id="status"></h3>
+
+    <button id="restartBtn" style="display:none;">Restart Game</button>
+</div>
+
+
+<script>
+let currentNumber = "";
+let digitLength = 3;
+let roundsLeft = 3;
+let score = 0;
+let timerInterval;
+let startTime;
+
+// Generate a random number of given digits
+function generateNumber() {
+    currentNumber = Math.floor(Math.random() * Math.pow(10, digitLength - 1) * 9) + Math.pow(10, digitLength - 1);
+    document.getElementById("numberDisplay").innerText = currentNumber;
+    
+    startTimer();
+}
+
+// Start timer
+function startTimer() {
+    startTime = performance.now();
+    timerInterval = setInterval(() => {
+        let now = performance.now();
+        let diff = ((now - startTime) / 1000).toFixed(2);
+        document.getElementById("timer").innerText = diff;
+    }, 50);
+}
+
+// Stop timer
+function stopTimer() {
+    clearInterval(timerInterval);
+    return parseFloat(document.getElementById("timer").innerText);
+}
+
+// Start first number
+generateNumber();
+
+document.getElementById("takeBtn").onclick = () => {
+    document.getElementById("numberDisplay").innerText = "???";
+    document.getElementById("inputSection").style.display = "block";
+    document.getElementById("userInput").focus();
+};
+
+document.getElementById("submitBtn").onclick = () => {
+    let userValue = document.getElementById("userInput").value.trim();
+
+    let timeTaken = stopTimer();
+
+    if (userValue === currentNumber.toString()) {
+        // Correct
+        let gained = Math.max(10, digitLength * 100 - Math.floor(timeTaken));
+        score += gained;
+
+        document.getElementById("status").innerText = 
+            `Correct! +${gained} points`;
+        document.getElementById("score").innerText = score;
+
+        roundsLeft--;
+
+        if (roundsLeft === 0) {
+            digitLength++;
+            roundsLeft = digitLength;
+        }
+
+        // Reset UI
+        document.getElementById("userInput").value = "";
+        document.getElementById("inputSection").style.display = "none";
+        document.getElementById("status").style.color = "green";
+        document.getElementById("timer").innerText = "0.00";
+
+        generateNumber();
+    } else {
+        // Wrong → Game Over
+        document.getElementById("status").innerText = 
+            `Game Over! Correct number was ${currentNumber}`;
+        document.getElementById("status").style.color = "red";
+
+        document.getElementById("inputSection").style.display = "none";
+        document.getElementById("takeBtn").style.display = "none";
+        document.getElementById("restartBtn").style.display = "block";
+    }
+};
+
+document.getElementById("restartBtn").onclick = () => {
+    score = 0;
+    digitLength = 3;
+    roundsLeft = 3;
+
+    document.getElementById("score").innerText = 0;
+    document.getElementById("status").innerText = "";
+    document.getElementById("restartBtn").style.display = "none";
+    document.getElementById("takeBtn").style.display = "inline-block";
+    
+    document.getElementById("timer").innerText = "0.00";
+
+    generateNumber();
+};
+</script>
+
+</body>
+</html>
