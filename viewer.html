@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Markdown Viewer</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <button id="toggleTree" class="floating-btn" title="Toggle files">F</button>
+
+  <div class="layout">
+    <aside id="tocPanel" class="panel left">
+      <h3>Contents</h3>
+      <nav id="toc"></nav>
+    </aside>
+
+    <main class="content-wrap">
+      <article id="content"></article>
+    </main>
+
+    <aside id="treePanel" class="panel right open">
+      <h3>Files</h3>
+      <div id="tree"></div>
+    </aside>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="viewer.js"></script>
+</body>
+</html>

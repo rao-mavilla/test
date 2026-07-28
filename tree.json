@@ -1,0 +1,13 @@
+{
+  "entries": [
+    { "type": "file", "name": "home.md", "path": "docs/home.md" },
+    {
+      "type": "dir",
+      "name": "guide",
+      "children": [
+        { "type": "file", "name": "getting-started.md", "path": "docs/guide/getting-started.md" }
+      ]
+    },
+    { "type": "file", "name": "about.md", "path": "docs/about.md" }
+  ]
+}
